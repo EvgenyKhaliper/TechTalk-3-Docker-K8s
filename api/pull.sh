@@ -1,0 +1,1 @@
+docker pull node:6.12.3-alpine

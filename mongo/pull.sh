@@ -1,1 +1,1 @@
-# docker pull mongo:3.6.2-jessie;
+docker pull mongo:3.6.2-jessie

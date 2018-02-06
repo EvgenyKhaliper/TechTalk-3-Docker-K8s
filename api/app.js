@@ -7,7 +7,7 @@ var ifaces = os.networkInterfaces();
 
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+var url = "mongodb://" +  process.env.MONGO_HOST + ":27017/mydb";
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
