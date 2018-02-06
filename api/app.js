@@ -7,7 +7,7 @@ var ifaces = os.networkInterfaces();
 
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://" +  process.env.MONGO_HOST + ":27017/mydb";
+var url = "mongodb://" +  process.argv[2] + ":27017/mydb";
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -40,8 +40,8 @@ app.post('/pongs', (req, res) => {
         if (err) throw err;
         var dbo = db.db("mydb");
         var pong = { first_name: req.body.first_name, family_name: req.body.family_name };
-        dbo.collection("pongs").insertOne(pong, function(err, res) {
-          if (err) throw err;
+        dbo.collection("pongs").insertOne(pong, function(insertErr, insertRes) {
+          if (insertErr) throw insertErr;
           db.close();
           res.sendStatus(200);
         });
@@ -62,6 +62,9 @@ app.listen(3000, () => {
 var getIp = () => { 
     var ip = "127.0.0.1";
     Object.keys(ifaces).forEach(function (ifname) {
+        if(ifname == "docker0") {
+            return;
+        }
         var alias = 0;
         ifaces[ifname].forEach(function (iface) {
             if ('IPv4' !== iface.family || iface.internal !== false) {

@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services: 
   api:
     image: api
@@ -6,9 +6,7 @@ services:
       context: ./api
     ports: 
       - "3000:3000"
-    environment: 
-      MONGO_HOST: mongo
-    command: npm start
+    command: npm start mongo
   mongo:
     image: mongo:3.6.2-jessie
     ports: 

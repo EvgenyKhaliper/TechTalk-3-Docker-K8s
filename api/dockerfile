@@ -5,6 +5,5 @@ COPY package.json ./
 COPY app.js ./
 RUN npm install
 
-ENV MONGO_HOST=localhost
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "npm", "start", "localhost"]
