@@ -1,0 +1,19 @@
+ apiVersion: extensions/v1beta1
+ kind: Deployment
+ metadata:
+   name: api
+   namespace: myapp
+ spec:
+   replicas: 3
+   template:
+     metadata:
+       labels:
+         app: api
+     spec:
+       containers:
+         - name: api
+           image: node:6.12.3-alpine
+           command: ["/bin/sh"]
+           args: ["-c", "cd /home/node;apk update && apk add ca-certificates && update-ca-certificates && apk add wget;wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/EvgenyKhaliper/TechTalk-3-Docker-K8s/master/api/app.js;wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/EvgenyKhaliper/TechTalk-3-Docker-K8s/master/api/package.json;npm install;node app.js mongo.myapp;"]
+           ports:
+             - containerPort: 3000

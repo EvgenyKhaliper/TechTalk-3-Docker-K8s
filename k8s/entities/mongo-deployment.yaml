@@ -1,0 +1,19 @@
+ apiVersion: extensions/v1beta1
+ kind: Deployment
+ metadata:
+   name: mongo
+   namespace: myapp
+ spec:
+   replicas: 1
+   template:
+     metadata:
+       labels:
+         app: mongo
+     spec:
+       containers:
+         - name: mongo
+           image: mongo:3.6.2-jessie
+           command: ["mongod"]
+           args: ["--bind_ip_all"]
+           ports:
+             - containerPort: 27017
